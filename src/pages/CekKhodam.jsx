@@ -37,13 +37,13 @@ const CekKhodam = () => {
 
 
     const handleSubmit = async () => {
-        if (!inputValue.trim()) {
+        if (!displayValue.trim()) {
             setToastMessage('Nama jangan kosong!');
             setShowToast(true);
-        } else if (inputValue.trim().length < 3) {
+        } else if (displayValue.trim().length < 3) {
             setToastMessage('Nama minimal berisi 3 huruf');
             setShowToast(true);
-        } else if (/\d/.test(inputValue)) {
+        } else if (/\d/.test(displayValue)) {
             setToastMessage('Nama jangan pakai angka atau karakter lain');
             setShowToast(true); 
         } else {
