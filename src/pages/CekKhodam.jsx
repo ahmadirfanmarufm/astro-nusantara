@@ -143,7 +143,7 @@ const CekKhodam = () => {
                     </button>
                     <button type='button' className='bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-4 font-bold text-white rounded-md'><a href='/cekprimbon'>Cek Primbon Kamu</a></button>
                 </form>
-                {!loading && showResult && (
+                {!loading && khodamResult && (
                     <div className="bg-gray-100 p-5 rounded-md mt-2 text-center">
                         <p className="font-bold text-lg text-xl">
                             Dalam diri <span className='text-lg text-blue-500'>{inputValue}</span>, bersemanyamlah Khodam:
