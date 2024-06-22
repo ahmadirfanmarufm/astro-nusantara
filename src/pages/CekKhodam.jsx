@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 
 const CekKhodam = () => {
+    const [inputValueTemp, setInputValueTemp] = useState('');
     const [inputValue, setInputValue] = useState('');
     const [khodamResult, setKhodamResult] = useState('');
     const [showResult, setShowResult] = useState(false);
@@ -32,7 +33,12 @@ const CekKhodam = () => {
         "Khodamnya lagi ngopi sambil baca koran. Setelah selesai membaca berita terbaru, dia akan siap membantu Kamu.",
         "Khodamnya lagi merem sebentar",
         "Khodamnya lagi sibuk mengurus khodam-khodam lain."
-    ]
+    ];
+
+    useEffect(() => {
+        setInputValue(inputValueTemp);
+    }, [inputValueTemp]);
+
 
     const handleSubmit = async () => {
         if (!inputValue.trim()) {
@@ -79,6 +85,7 @@ const CekKhodam = () => {
                 if (!descriptionKhodam.current) {
                     descriptionKhodam.current = response.data.choices[0].message.content.trim();
                 }            
+                setInputValueTemp(inputValueTemp);
                 setKhodamResult(generateKhodam);
                 setShowResult(true);
                 setLoading(false);
@@ -129,6 +136,7 @@ const CekKhodam = () => {
                         type='text' 
                         className='py-2 px-4 text-md rounded-md border border-gray-500' 
                         value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
                         placeholder='Masukkan namamu'
                     />
                     <button type='button' className='bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-4 font-bold text-white rounded-md' onClick={handleSubmit}>
