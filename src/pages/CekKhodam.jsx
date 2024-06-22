@@ -85,6 +85,7 @@ const CekKhodam = () => {
                 setKhodamResult(generateKhodam);
                 setShowResult(true);
                 setLoading(false);
+                setDisplayValue('');
             } catch(err) {
                 setToastMessage('Terjadi kesalahan saat memproses permintaan kamu');
                 setShowToast(true);
