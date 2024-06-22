@@ -22,7 +22,7 @@ const CekKhodam = () => {
         "Macan Ompong", "Harimau Ambisius", "Ular Bipolar", "Kuda Gaul", "Kucing Manja", "Gajah Pemberani", "Sedotan Ajaib", "Sendok Ajaib", 
         "Gorilla Cengeng", "Kelinci Pemalu", "Kuda Hyperaktif", "Burung Kepo", "Kura-kura Santai", "Elang Visioner", "Beruang Mager", 
         "Jerapah Pengintai", "Kucing Sok Pinter", "Ular Misterius", "Ikan Sok Suci", "Burung Penguasa", "Harimau Putih", "Banteng Merah", 
-        "Macan Oranye", "Kucing Oranye", "Belut Elektrik", "Kijang Lompat", "Bunglon Kamuflase", "Kosong",
+        "Macan Oranye", "Kucing Oranye", "Belut Elektrik", "Kijang Lompat", "Bunglon Kamuflase", "Kosong", "Peci Terbang", "Mobil Remote"
     ];
 
     const messageKhodamNull = [
