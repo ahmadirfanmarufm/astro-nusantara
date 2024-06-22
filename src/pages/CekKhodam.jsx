@@ -150,7 +150,7 @@ const CekKhodam = () => {
                 {!loading && showResult && (
                     <div className="bg-gray-100 p-5 rounded-md mt-2 text-center">
                         <p className="font-bold text-lg text-xl">
-                            Dalam diri <span className='text-lg text-blue-500'>{inputValue}</span>, bersemanyamlah Khodam:
+                            Dalam diri <span className='text-lg text-blue-500'>{inputValue}</span>, bersemayamlah Khodam:
                         </p>
                         <p className="text-lg text-blue-500 font-bold text-xl">{khodamResult}</p>
                         <p className='text-lg text-gray-700'>{descriptionKhodam.current}</p>
