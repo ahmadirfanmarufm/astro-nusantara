@@ -9,12 +9,8 @@ const Home = () => {
                 <p className='text-black mb-4'>Cari tahu khodam, primbon, dan ramalan jawa di satu web</p>
                 <h1 className='text-black font-bold mb-4 text-xl'>PILIH APA YANG INGIN KAMU CEK</h1>
                 <div className='justify-center items-center flex flex-row gap-4 mb-3'>
-                    <button type='button' className='bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-4 font-bold text-white rounded-md'>
-                        <a href='/cekkhodam'>CEK KHODAM</a>
-                    </button>
-                    <button type='button' className='bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-4 font-bold text-white rounded-md'>
-                        <a href='/cekprimbon'>CEK PRIMBON</a>
-                    </button>
+                    <a className='bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-4 font-bold text-white rounded-md' href='/cekkhodam'>CEK KHODAM</a>
+                    <a className='bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-4 font-bold text-white rounded-md' href='/cekprimbon'>CEK PRIMBON</a>
                 </div>
             </div>
 

@@ -76,12 +76,8 @@ const CekPrimbon = () => {
           <h1 className='text-red-500 font-bold mb-4 text-xl'>COMING SOON</h1>
           <p className='flex flex-row text-gray-700 mb-4 text-md'>Halaman ini sedang dalam proses pembuatan, jadi mohon tunggu. Yang buat sendiri soalnya 😔</p>
           <div className='flex flex-row justify-center items-center gap-3 mb-3'>
-              <button type='button' className='bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-4 font-bold text-white rounded-md'>
-                  <a href='/'>HALAMAN UTAMA</a>
-              </button>
-              <button type='button' className='bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-4 font-bold text-white rounded-md'>
-                  <a href='/cekkhodam'>CEK KHODAM</a>
-              </button>
+              <a className='bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-4 font-bold text-white rounded-md' href='/'>HALAMAN UTAMA</a>
+              <a className='bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-4 font-bold text-white rounded-md' href='/cekkhodam'>CEK KHODAM</a>
           </div>
       </div>
 
