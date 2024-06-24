@@ -81,7 +81,6 @@ const CekKhodam = () => {
                 if (!descriptionKhodam.current) {
                     descriptionKhodam.current = response.data.choices[0].message.content.trim();
                 }
-                console.log(generateKhodam);
                 setKhodamResult(generateKhodam);
                 setLoading(false);
             } catch(err) {
