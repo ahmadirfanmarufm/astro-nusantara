@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 
 const CekKhodam = () => {
@@ -35,8 +35,8 @@ const CekKhodam = () => {
         "Khodamnya lagi sibuk mengurus khodam-khodam lain."
     ];
 
-
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // prevent default form submission
         if (!displayValue.trim()) {
             setToastMessage('Nama jangan kosong!');
             setShowToast(true);
@@ -47,25 +47,24 @@ const CekKhodam = () => {
             setToastMessage('Nama jangan pakai angka atau karakter lain');
             setShowToast(true); 
         } else {
-            setInputValue(displayValue);
+            const currentName = displayValue.trim();
+            setInputValue(currentName);
             setLoading(true);
             let generateKhodam;
-            if (inputValue === previousName.current) {
+            if (currentName === previousName.current) {
                 generateKhodam = previousKhodam.current;
-                descriptionKhodam.current = descriptionKhodam.current;
             } else {
                 const randomKhodamIndex = Math.floor(Math.random() * khodamName.length);
                 generateKhodam = khodamName[randomKhodamIndex];
                 previousKhodam.current = generateKhodam;
-                descriptionKhodam.current = ''; 
             }
-            previousName.current = inputValue;
+            previousName.current = currentName;
 
-            const prompt = `Mohon jelaskan khodam ${generateKhodam} dalam Bahasa indonesia hanya 15 kata saja menggunakan lelucon dan berikan arti yang terlihat meyakinkan dengan mengaitkannya pada karakteristik hewan atau makhluk astral yang terkait dari nama ${inputValue}, contohnya jika khodamnya adalah Khodam kadal sakti maka contoh jawabanya kamu suka bersembunyi dengan cepat dan sangat lincah memikat hati wanita.`
+            const prompt = `Mohon jelaskan khodam ${generateKhodam} dalam Bahasa indonesia hanya 15 kata saja menggunakan lelucon dan berikan arti yang terlihat meyakinkan dengan mengaitkannya pada karakteristik hewan atau makhluk astral yang terkait dari nama ${currentName}, contohnya jika khodamnya adalah Khodam kadal sakti maka contoh jawabanya kamu suka bersembunyi dengan cepat dan sangat lincah memikat hati wanita.`
             
             if(generateKhodam === "Kosong" && !descriptionKhodam.current) {
                 const randomMessageIndex = Math.floor(Math.random() * messageKhodamNull.length);
-                descriptionKhodam.current = messageKhodamNull[randomMessageIndex]
+                descriptionKhodam.current = messageKhodamNull[randomMessageIndex];
             }
 
             try {
@@ -81,11 +80,10 @@ const CekKhodam = () => {
 
                 if (!descriptionKhodam.current) {
                     descriptionKhodam.current = response.data.choices[0].message.content.trim();
-                }            
+                }
+                console.log(generateKhodam);
                 setKhodamResult(generateKhodam);
-                setShowResult(true);
                 setLoading(false);
-                setDisplayValue('');
             } catch(err) {
                 setToastMessage('Terjadi kesalahan saat memproses permintaan kamu');
                 setShowToast(true);
@@ -94,40 +92,46 @@ const CekKhodam = () => {
         }
     }
 
+    useEffect(() => {
+        if (khodamResult) {
+            setShowResult(true);
+        }
+    }, [khodamResult]);
+
     return (
         <main className='container flex flex-col justify-center items-center'>
-                {showToast && (
-                    <div className='mb-3 flex flex-col justify-center items-center'>
-                        <div 
-                            id="toast-warning" 
-                            className="flex items-center w-full max-w-xs p-3 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" 
-                            role="alert"
-                        >
-                        <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-100 rounded-lg dark:bg-blue-700 dark:text-blue-200">
-                            <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
-                            </svg>
-                            <span className="sr-only">Warning icon</span>
-                        </div>
-                        <div className="ms-3 text-sm font-normal">{toastMessage}</div>
-                        <button 
-                            type="button" 
-                            className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" 
-                            data-dismiss-target="#toast-warning" 
-                            aria-label="Close"
-                            onClick={() => setShowToast(false)}
-                        >
-                            <span className="sr-only">Close</span>
-                            <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"  viewBox="0 0 24 24" stroke="currentColor" onClick={() => setShowToast(false)} style={{ cursor: 'pointer' }}>
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        </button>
+            {showToast && (
+                <div className='mb-3 flex flex-col justify-center items-center'>
+                    <div 
+                        id="toast-warning" 
+                        className="flex items-center w-full max-w-xs p-3 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" 
+                        role="alert"
+                    >
+                    <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-100 rounded-lg dark:bg-blue-700 dark:text-blue-200">
+                        <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
+                        </svg>
+                        <span className="sr-only">Warning icon</span>
                     </div>
+                    <div className="ms-3 text-sm font-normal">{toastMessage}</div>
+                    <button 
+                        type="button" 
+                        className="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" 
+                        data-dismiss-target="#toast-warning" 
+                        aria-label="Close"
+                        onClick={() => setShowToast(false)}
+                    >
+                        <span className="sr-only">Close</span>
+                        <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"  viewBox="0 0 24 24" stroke="currentColor" onClick={() => setShowToast(false)} style={{ cursor: 'pointer' }}>
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
                 </div>
-                )}
+            </div>
+            )}
             <div className="container flex flex-col justify-center items-center bg-white p-5 rounded-md max-w-md mx-auto">
                 <h1 className='text-4xl text-blue-500 font-bold'>CEK KHODAM</h1>
-                <form className='flex flex-col gap-4 py-4' onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+                <form className='flex flex-col gap-4 py-4' onSubmit={handleSubmit}>
                     <span className="text-xl font-medium font-semibold text-slate-700">Cek khodam yang ada di dalam diri kamu</span>
                     <input 
                         type='text' 
@@ -136,7 +140,7 @@ const CekKhodam = () => {
                         onChange={(e) => setDisplayValue(e.target.value)}
                         placeholder='Masukkan namamu'
                     />
-                    <button type='button' className='bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-4 font-bold text-white rounded-md' onClick={handleSubmit}>
+                    <button type='submit' className='bg-blue-500 shadow-lg shadow-blue-500/50 py-2 px-4 font-bold text-white rounded-md' disabled={loading}>
                         {loading ? (
                             <div className='flex flex-col justify-center items-center'>
                                 <svg className='animate-spin h-5 w-5 mr-3 border-t-2 border-b-2 border-white rounded-full' viewBox='0 0 24 24'></svg>
@@ -158,8 +162,8 @@ const CekKhodam = () => {
                 )}
             </div>
 
-            <footer class="bg-white rounded-lg shadow m-4">
-                <span class="block text-sm mt-2 mb-2 mr-3 ml-3 text-gray-500 sm:text-center dark:text-gray-400">Dibuat dengan ❤️ oleh <a href="https://github.com/ahmadirfanmarufm" class="hover:underline text-blue-500 font-bold">Ahmad Irfan Ma'ruf Maulana</a></span>
+            <footer className="bg-white rounded-lg shadow m-4">
+                <span className="block text-sm mt-2 mb-2 mr-3 ml-3 text-gray-500 sm:text-center dark:text-gray-400">Dibuat dengan ❤️ oleh <a href="https://github.com/ahmadirfanmarufm" className="hover:underline text-blue-500 font-bold">Ahmad Irfan Ma'ruf Maulana</a></span>
             </footer>
         </main>
     )
