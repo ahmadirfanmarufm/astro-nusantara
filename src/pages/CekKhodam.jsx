@@ -36,7 +36,7 @@ const CekKhodam = () => {
     ];
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // prevent default form submission
+        e.preventDefault(); 
         if (!displayValue.trim()) {
             setToastMessage('Nama jangan kosong!');
             setShowToast(true);
@@ -58,11 +58,10 @@ const CekKhodam = () => {
                 generateKhodam = khodamName[randomKhodamIndex];
                 previousKhodam.current = generateKhodam;
             }
-            previousName.current = currentName;
 
             const prompt = `Mohon jelaskan khodam ${generateKhodam} dalam Bahasa indonesia hanya 15 kata saja menggunakan lelucon dan berikan arti yang terlihat meyakinkan dengan mengaitkannya pada karakteristik hewan atau makhluk astral yang terkait dari nama ${currentName}, contohnya jika khodamnya adalah Khodam kadal sakti maka contoh jawabanya kamu suka bersembunyi dengan cepat dan sangat lincah memikat hati wanita.`
             
-            if(generateKhodam === "Kosong" && !descriptionKhodam.current) {
+            if(generateKhodam === "Kosong" && descriptionKhodam.current.length === 0) {
                 const randomMessageIndex = Math.floor(Math.random() * messageKhodamNull.length);
                 descriptionKhodam.current = messageKhodamNull[randomMessageIndex];
             }
@@ -78,9 +77,19 @@ const CekKhodam = () => {
                     },
                 });
 
-                if (!descriptionKhodam.current) {
-                    descriptionKhodam.current = response.data.choices[0].message.content.trim();
+                const resultDescriptionKhodam = response.data.choices[0].message.content.trim();
+
+                let generateDescriptionKhodam;
+                if (descriptionKhodam.current.length !== 0 && currentName === previousName.current) {
+                    generateDescriptionKhodam = descriptionKhodam.current;
+                } else {
+                    generateDescriptionKhodam = resultDescriptionKhodam;
+                    descriptionKhodam.current = generateDescriptionKhodam;
                 }
+
+                previousName.current = currentName;
+                descriptionKhodam.current = generateDescriptionKhodam;
+
                 setKhodamResult(generateKhodam);
                 setLoading(false);
             } catch(err) {
