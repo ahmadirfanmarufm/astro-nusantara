@@ -118,7 +118,7 @@ const CekPrimbon = () => {
   const handleSubmitHoroskop = async(e) => {
     e.preventDefault();
     if (!valueDateHoroskop || valueDateHoroskop.startDate === null) {
-      setDateHoroskopError('Tanggal lahir kamu harus diisi');
+      setDateHoroskopError('Tanggal lahir kamu harus di isi atau pilih tanggal melalui menu yang sudah disediakan');
       return;
     }
 
@@ -210,7 +210,7 @@ const CekPrimbon = () => {
   const handleSubmitTanggalJadi = async(e) => {
     e.preventDefault();
     if (!valueDateTanggalJadi || valueDateTanggalJadi.startDate === null) {
-      setDateTanggalJadiError('Tanggal jadian atau pernikahaan kamu harus diisi');
+      setDateTanggalJadiError('Tanggal jadian atau pernikahaan kamu harus di isi atau pilih tanggal melalui menu yang sudah disediakan');
       return;
     }
 
@@ -239,7 +239,7 @@ const CekPrimbon = () => {
     } else if (/\d/.test(displayValueRamalanJodoh1) || /\d/.test(displayValueRamalanJodoh2)) {
       setTextRamalanJodohError('Nama jangan pakai angka atau karakter lain');
     } else if(valueDateRamalanJodoh1.startDate === null && valueDateRamalanJodoh2.startDate === null) {
-      setDateRamalanJodohError('Tanggal lahir kamu dan pasanganmu harus di isi!')
+      setDateRamalanJodohError('Tanggal lahir kamu dan pasanganmu harus di isi atau pilih tanggal melalui menu yang sudah disediakan!')
     }
 
     try {
@@ -262,7 +262,7 @@ const CekPrimbon = () => {
   const handleSubmitRamalanRejeki = async(e) => {
     e.preventDefault();
     if (!valueDateRamalanRejeki || valueDateRamalanRejeki.startDate === null) {
-      setDateRamalanRejekiError('Tanggal lahir kamu harus diisi');
+      setDateRamalanRejekiError('Tanggal lahir kamu harus di isi atau pilih tanggal melalui menu yang sudah disediakan!');
       return;
     }
 
@@ -285,10 +285,10 @@ const CekPrimbon = () => {
   const handleSubmitKecocokanNama = async(e) => {
     e.preventDefault();
     if(!displayValueKecocokanNama || displayValueKecocokanNama === null) {
-      setTextAndDateKecocokanNamaError('Nama kamu harus diisi!');
+      setTextAndDateKecocokanNamaError('Nama kamu harus di isi!');
       return;
     } else if (!valueDateKecocokanNama || valueDateKecocokanNama.startDate === null) {
-      setTextAndDateKecocokanNamaError('Tanggal lahir kamu harus diisi');
+      setTextAndDateKecocokanNamaError('Tanggal lahir kamu harus di isi');
       return;
     }
 
@@ -331,7 +331,7 @@ const CekPrimbon = () => {
     const handleSubmitHariBaik = async(e) => {
       e.preventDefault();
       if (!valueDateHariBaik || valueDateHariBaik.startDate === null) {
-        setDateHariBaikError('Tanggal Waktu harinya harus diisi');
+        setDateHariBaikError('Tanggal Waktu harinya harus di isi atau pilih tanggal melalui menu yang sudah disediakan!');
         return;
       }
   
@@ -354,7 +354,7 @@ const CekPrimbon = () => {
     const handleSubmitHariLarangan = async(e) => {
       e.preventDefault();
       if (!valueDateHariLarangan || valueDateHariLarangan.startDate === null) {
-        setDateHariLaranganError('Tanggal Lahir Kamu harus diisi');
+        setDateHariLaranganError('Tanggal Lahir Kamu harus di isi atau pilih tanggal melalui menu yang sudah disediakan!');
         return;
       }
   
@@ -419,12 +419,13 @@ const CekPrimbon = () => {
             <div className="flex flex-col gap-4 py-4 w-full">
               <form className='flex flex-col gap-4' onSubmit={handleSubmitHoroskop}>
                 <Datepicker 
-                  className={`py-2 px-4 text-md rounded-md border ${dateErrorHoroskop ? 'border-red-500' : 'border-gray-500'} w-full pr-12 pl-10`}
+                  className={`datepicker-input py-2 px-4 text-md rounded-md border ${dateErrorHoroskop ? 'border-red-500' : 'border-gray-500'} w-full pr-12 pl-10`}
                   useRange={false}
                   asSingle={true} 
                   value={valueDateHoroskop} 
                   onChange={handleValueDateHoroskopChange}
-                  placeholder='Masukkan Tanggal Lahir Kamu >>' 
+                  placeholder='Masukkan Tanggal Lahir Kamu >>'
+                  readOnly={true}
                 /> 
                 {dateErrorHoroskop && <p className="text-red-600 text-md">{dateErrorHoroskop}</p>}
                 <button
@@ -590,7 +591,8 @@ const CekPrimbon = () => {
                   asSingle={true} 
                   value={valueDateTanggalJadi} 
                   onChange={handleValueDateTanggalJadiChange}
-                  placeholder='Masukkan Tanggal Jadian Kamu >>' 
+                  placeholder='Masukkan Tanggal Jadian Kamu >>'
+                  readOnly={true} 
                 /> 
                 {dateTanggalJadiError && <p className="text-red-600 text-md">{dateTanggalJadiError}</p>}
                 <button
@@ -635,6 +637,7 @@ const CekPrimbon = () => {
                   value={valueDateRamalanJodoh1} 
                   onChange={handleValueDateRamalanJodohChange1}
                   placeholder='Masukkan Tanggal Lahir Kamu >>' 
+                  readOnly={true}
                 /> 
                 <input 
                   type='text' 
@@ -650,6 +653,7 @@ const CekPrimbon = () => {
                   value={valueDateRamalanJodoh2} 
                   onChange={handleValueDateRamalanJodohChange2}
                   placeholder='Masukkan Tanggal Lahir Pasanganmu >>' 
+                  readOnly={true}
                 /> 
                 {textRamalanJodohError || dateRamalanJodohError && <p className="text-red-600 text-md">{textRamalanJodohError || dateRamalanJodohError}</p>}
                 <button
@@ -689,6 +693,7 @@ const CekPrimbon = () => {
                   value={valueDateRamalanRejeki} 
                   onChange={handleValueDateRejekiChange}
                   placeholder='Masukkan Tanggal Lahir Kamu >>' 
+                  readOnly={true}
                 /> 
                 {dateRamalanRejekiError && <p className="text-red-600 text-md">{dateRamalanRejekiError}</p>}
                 <button
@@ -734,6 +739,7 @@ const CekPrimbon = () => {
                   value={valueDateKecocokanNama} 
                   onChange={handleValueDateKecocokanNamaChange}
                   placeholder='Masukkan Tanggal Lahir Kamu >>' 
+                  readOnly={true}
                 /> 
                 {textAndDateKecocokanNama && <p className="text-red-600 text-md">{textAndDateKecocokanNama}</p>}
                 <button
@@ -771,6 +777,7 @@ const CekPrimbon = () => {
                   value={valueDateHariBaik} 
                   onChange={handleValueDateHariBaikChange}
                   placeholder='Masukkan Waktu harinya >>' 
+                  readOnly={true}
                 /> 
                 {dateHariBaikError && <p className="text-red-600 text-md">{dateHariBaikError}</p>}
                 <button
@@ -808,6 +815,7 @@ const CekPrimbon = () => {
                   value={valueDateHariLarangan} 
                   onChange={handleValueDateHariLaranganChange}
                   placeholder='Masukkan Tanggal Lahir Kamu >>' 
+                  readOnly={true}
                 /> 
                 {dateHariLaranganError && <p className="text-red-600 text-md">{dateHariLaranganError}</p>}
                 <button

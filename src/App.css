@@ -9,6 +9,10 @@ body {
   background-color: #1e1e1e;
 }
 
+.datepicker-input {
+  pointer-events: none;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
